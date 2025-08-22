@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recordatorio de Bienestar</title>
+
+  <!-- Styling -->
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,6 +38,7 @@
       background-color: #0288d1;
       color: white;
     }
+    /* Cambia el color cuando el ratón pasa por encima */
     button:hover {
       background-color: #0277bd;
     }
@@ -44,6 +47,7 @@
     }
   </style>
 </head>
+  
 <body>
   <img src="https://cdn-icons-png.flaticon.com/512/4205/4205906.png" alt="Bienestar">
   
@@ -54,6 +58,8 @@
 
   <h1>💙 Recordatorio de Bienestar</h1>
   <p>Esta página te enviará una notificación cada 1 hora para preguntarte cómo estás y darte un momento para expresarte.</p>
+  
+  <!-- Botón para activar las notificaciones del navegador -->
   <button onclick="pedirPermiso()">Activar Notificaciones</button>
 
   <script>
@@ -74,6 +80,7 @@
 
     function cambiarIdioma() {
       const lang = document.getElementById("idioma").value;
+      // Actualiza todos los textos visibles de la página según el idioma elegido
       document.querySelector("h1").textContent = textos[lang].titulo;
       document.querySelector("p").textContent = textos[lang].descripcion;
       document.querySelector("button").textContent = textos[lang].boton;
@@ -94,11 +101,15 @@
     function iniciarRecordatorio() {
       const lang = document.getElementById("idioma").value;
 
-      new Notification(textos[lang].notificacion, {
-        icon: "https://cdn-icons-png.flaticon.com/512/4205/4205906.png"
-      }).onclick = () => {
-        window.open("https://chat.openai.com", "_blank");
-      };
+// Crear la notificación
+       let notif = new Notification(textos[lang].notificacion, {
+  icon: "https://cdn-icons-png.flaticon.com/512/4205/4205906.png"
+});
+
+// Al hacer clic en la notificación, abrir ChatGPT
+notif.onclick = function() {
+  window.open("https://chat.openai.com", "_blank");
+};
 
       setInterval(() => {
         let notif = new Notification(textos[lang].notificacion, {
@@ -107,10 +118,12 @@
         notif.onclick = () => {
           window.open("https://chat.openai.com", "_blank");
         };
-      }, 1 * 60 * 60 * 1000); // Cada 1 hora
+      }, 1 * 60 * 60 * 1000); // Se repite la notificación cada 1 hora
     }
   </script>
 </body>
 </html>
+
+
 
 
